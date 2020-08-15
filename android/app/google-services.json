@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "536180490027",
+    "firebase_url": "https://loja-virtual-completa-f1285.firebaseio.com",
+    "project_id": "loja-virtual-completa-f1285",
+    "storage_bucket": "loja-virtual-completa-f1285.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:536180490027:android:57c1b9778b033ba6ef4f6e",
+        "android_client_info": {
+          "package_name": "br.com.rezende.lojavirtual"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "536180490027-p5gis2k3s3ka1larg3gi5i4rpj51lqkm.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBeDCiuBsAghcLiVS5lLzTchMVZuCVrbqQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "536180490027-p5gis2k3s3ka1larg3gi5i4rpj51lqkm.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
