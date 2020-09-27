@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:lojavirtual/screens/base/base_screen.dart';
 
 void main() {
   runApp(MyApp());
@@ -9,20 +10,13 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
+      title: 'Loja do Rafael',
+      debugShowCheckedModeBanner: false,
       theme: ThemeData(
-
         primarySwatch: Colors.blue,
-          visualDensity: VisualDensity.adaptivePlatformDensity,
+        visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
-      home: Container(
-          child: Row(
-              // ignore: prefer_const_literals_to_create_immutables
-              children:[
-                const Text("texto"),
-                const Text("opa")]
-          )
-      ),
+      home: BaseScreen(),
     );
   }
 }
