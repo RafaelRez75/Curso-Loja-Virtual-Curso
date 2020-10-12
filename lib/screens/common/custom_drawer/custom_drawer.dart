@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:lojavirtual/custom_drawer/drawer_tile.dart';
+import 'package:lojavirtual/screens/common/custom_drawer/custom_drawer_header.dart';
+import 'package:lojavirtual/screens/common/custom_drawer/drawer_tile.dart';
 
 class CustomDrawer extends StatelessWidget {
   @override
@@ -7,6 +8,7 @@ class CustomDrawer extends StatelessWidget {
     return Drawer(
       child: ListView(
         children: <Widget>[
+          CustomDrawerHeader(),
           DrawerTile(iconData: Icons.home, title: 'Inicio', page: 0),
           DrawerTile(
             iconData: Icons.list,
