@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:lojavirtual/models/page_manager.dart';
-import 'package:lojavirtual/screens/common/custom_drawer/custom_drawer.dart';
+import 'file:///C:/Users/Public/loja_virtual/lib/custom_drawer/custom_drawer.dart';
 import 'package:provider/provider.dart';
 
 class BaseScreen extends StatelessWidget {
