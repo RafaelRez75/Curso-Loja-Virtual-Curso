@@ -1,6 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:lojavirtual/models/product.dart';
 
-class ProductManager{
+class ProductManager extends ChangeNotifier{
 
   ProductManager(){
     _loadAllProducts();
@@ -8,14 +10,15 @@ class ProductManager{
 
   final Firestore firestore = Firestore.instance;
 
+  List<Product> _allProducts = [];
+
 
   Future<void> _loadAllProducts() async{
     final QuerySnapshot snapProducts =
       await firestore.collection('products').getDocuments();
 
+    _allProducts = snapProducts.documents.map((d) => Product.fromDocument(d)).toList();
 
-    for(DocumentSnapshot doc in snapProducts.documents){
-      print(doc.data);
-    }
+    notifyListeners();
   }
 }
