@@ -4,12 +4,11 @@ import 'package:lojavirtual/models/product.dart';
 import 'package:lojavirtual/models/product_manager.dart';
 import 'package:lojavirtual/models/user_manager.dart';
 import 'package:lojavirtual/screens/base/base_screen.dart';
+import 'package:lojavirtual/screens/cart/cart_screen.dart';
 import 'package:lojavirtual/screens/detailproduct/product_screen.dart';
+import 'package:lojavirtual/screens/login/login_screen.dart';
 import 'package:lojavirtual/screens/signup/signup_screen.dart';
 import 'package:provider/provider.dart';
-
-import 'screens/login/login_screen.dart';
-
 void main() {
   runApp(MyApp());
 }
@@ -32,7 +31,7 @@ class MyApp extends StatelessWidget {
         ),
       ],
       child: MaterialApp(
-        title: 'Loja do Daniel',
+        title: 'Loja do Rafael',
         debugShowCheckedModeBanner: false,
         theme: ThemeData(
           primaryColor: const Color.fromARGB(255, 4, 125, 141),
@@ -55,7 +54,13 @@ class MyApp extends StatelessWidget {
               );
             case '/product':
               return MaterialPageRoute(
-                  builder: (_) => ProductScreen(settings.arguments as Product)
+                  builder: (_) => ProductScreen(
+                      settings.arguments as Product
+                  )
+              );
+            case '/cart':
+              return MaterialPageRoute(
+                  builder: (_) => CartScreen()
               );
             case '/base':
             default:
