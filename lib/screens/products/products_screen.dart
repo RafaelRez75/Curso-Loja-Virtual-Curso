@@ -80,12 +80,18 @@ class ProductsScreen extends StatelessWidget {
             padding: const EdgeInsets.all(4),
             itemCount: filteredProducts.length,
             itemBuilder: (_, index){
-              return ProductListTile(
-                filteredProducts[index]
-              );
+              return ProductListTile(filteredProducts[index]);
             }
           );
         },
+      ),
+      floatingActionButton: FloatingActionButton(
+        backgroundColor: Colors.white,
+        foregroundColor: Theme.of(context).primaryColor,
+        onPressed: (){
+          Navigator.of(context).pushNamed('/cart');
+        },
+        child: Icon(Icons.shopping_cart),
       ),
     );
   }
