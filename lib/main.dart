@@ -1,14 +1,17 @@
 import 'package:flutter/material.dart';
-import 'package:lojavirtual/models/cart_manager.dart';
-import 'package:lojavirtual/models/product.dart';
-import 'package:lojavirtual/models/product_manager.dart';
-import 'package:lojavirtual/models/user_manager.dart';
 import 'package:lojavirtual/screens/base/base_screen.dart';
 import 'package:lojavirtual/screens/cart/cart_screen.dart';
 import 'package:lojavirtual/screens/detailproduct/product_screen.dart';
 import 'package:lojavirtual/screens/login/login_screen.dart';
 import 'package:lojavirtual/screens/signup/signup_screen.dart';
 import 'package:provider/provider.dart';
+
+import 'models/cart_manager.dart';
+import 'models/product.dart';
+import 'models/product_manager.dart';
+import 'models/user_manager.dart';
+
+
 void main() {
   runApp(MyApp());
 }
@@ -25,15 +28,15 @@ class MyApp extends StatelessWidget {
           create: (_) => ProductManager(),
           lazy: false,
         ),
-        ProxyProvider<UserManager, CartManager>(
+        ChangeNotifierProxyProvider<UserManager, CartManager>(
           create: (_) => CartManager(),
           lazy: false,
           update: (_, userManager, cartManager) =>
-            cartManager..updateUser(userManager),
+          cartManager..updateUser(userManager),
         ),
       ],
       child: MaterialApp(
-        title: 'Loja do Rafael',
+        title: 'Loja do Daniel',
         debugShowCheckedModeBanner: false,
         theme: ThemeData(
           primaryColor: const Color.fromARGB(255, 4, 125, 141),

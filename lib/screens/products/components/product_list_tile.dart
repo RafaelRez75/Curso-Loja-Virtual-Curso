@@ -26,7 +26,7 @@ class ProductListTile extends StatelessWidget {
                 child: Image.network(product.images.first),
               ),
               Expanded(
-                child: Column(
+                child:  Column(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
