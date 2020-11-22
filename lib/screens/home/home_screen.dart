@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:lojavirtual/models/home_manager.dart';
 import 'package:lojavirtual/screens/common/custom_drawer/custom_drawer.dart';
+import 'package:lojavirtual/screens/home/components/section_list.dart';
+import 'package:provider/provider.dart';
 
 class HomeScreen extends StatelessWidget {
   @override
@@ -10,14 +13,14 @@ class HomeScreen extends StatelessWidget {
         children: <Widget>[
           Container(
             decoration: BoxDecoration(
-              gradient: LinearGradient(
-                colors: const [
-                  Color.fromARGB(255, 211, 118, 130),
-                  Color.fromARGB(255, 253, 181, 168)
-                ],
-                begin: Alignment.topCenter,
-                end: Alignment.bottomCenter
-              )
+                gradient: LinearGradient(
+                    colors: const [
+                      Color.fromARGB(255, 211, 118, 130),
+                      Color.fromARGB(255, 253, 181, 168)
+                    ],
+                    begin: Alignment.topCenter,
+                    end: Alignment.bottomCenter
+                )
             ),
           ),
           CustomScrollView(
@@ -28,7 +31,7 @@ class HomeScreen extends StatelessWidget {
                 elevation: 0,
                 backgroundColor: Colors.transparent,
                 flexibleSpace: const FlexibleSpaceBar(
-                  title: Text('Loja do Rafael'),
+                  title: Text('Loja do Daniel'),
                   centerTitle: true,
                 ),
                 actions: <Widget>[
@@ -36,14 +39,28 @@ class HomeScreen extends StatelessWidget {
                     icon: Icon(Icons.shopping_cart),
                     color: Colors.white,
                     onPressed: () => Navigator.of(context).pushNamed('/cart'),
-                  )
+                  ),
                 ],
               ),
-              SliverToBoxAdapter(
-                child: Container(
-                  height: 2000,
-                  width: 200,
-                ),
+              Consumer<HomeManager>(
+                builder: (_, homeManager, __){
+                  final List<Widget> children = homeManager.sections.map<Widget>(
+                          (section) {
+                        switch(section.type){
+                          case 'List':
+                            return SectionList(section);
+                          case 'Staggered':
+                            return Container();
+                          default:
+                            return Container();
+                        }
+                      }
+                  ).toList();
+
+                  return SliverList(
+                    delegate: SliverChildListDelegate(children),
+                  );
+                },
               )
             ],
           ),
