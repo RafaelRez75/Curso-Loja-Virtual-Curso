@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:lojavirtual/models/home_manager.dart';
 import 'package:lojavirtual/screens/base/base_screen.dart';
 import 'package:lojavirtual/screens/cart/cart_screen.dart';
 import 'package:lojavirtual/screens/detailproduct/product_screen.dart';
 import 'package:lojavirtual/screens/login/login_screen.dart';
 import 'package:lojavirtual/screens/signup/signup_screen.dart';
 import 'package:provider/provider.dart';
-import 'package:lojavirtual/models/home_manager.dart';
 
 import 'models/cart_manager.dart';
 import 'models/product.dart';
@@ -29,7 +29,7 @@ class MyApp extends StatelessWidget {
           create: (_) => ProductManager(),
           lazy: false,
         ),
-        Provider(
+        ChangeNotifierProvider(
           create: (_) => HomeManager(),
           lazy: false,
         ),
