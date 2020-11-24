@@ -6,6 +6,7 @@ import 'package:lojavirtual/screens/detailproduct/product_screen.dart';
 import 'package:lojavirtual/screens/login/login_screen.dart';
 import 'package:lojavirtual/screens/signup/signup_screen.dart';
 import 'package:provider/provider.dart';
+import 'models/admin_users_manager.dart';
 
 import 'models/cart_manager.dart';
 import 'models/product.dart';
@@ -39,9 +40,14 @@ class MyApp extends StatelessWidget {
           update: (_, userManager, cartManager) =>
           cartManager..updateUser(userManager),
         ),
+        ChangeNotifierProxyProvider<UserManager, AdminUsersManager>(
+            create: (_) => AdminUsersManager(),
+            lazy: false,
+            update: (_, userManager, adminUsersManager) => adminUsersManager..updateUser(userManager)
+        )
       ],
       child: MaterialApp(
-        title: 'Loja do Daniel',
+        title: 'Loja do Rafael',
         debugShowCheckedModeBanner: false,
         theme: ThemeData(
           primaryColor: const Color.fromARGB(255, 4, 125, 141),
