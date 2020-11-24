@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:lojavirtual/models/product_manager.dart';
-import 'package:lojavirtual/screens/common/custom_drawer/custom_drawer.dart';
 import 'package:lojavirtual/screens/products/components/product_list_tile.dart';
 import 'package:provider/provider.dart';
+
+import 'file:///C:/Users/Public/loja_virtual/lib/common/custom_drawer/custom_drawer.dart';
 
 import 'components/search_dialog.dart';
 
