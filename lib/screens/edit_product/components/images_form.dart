@@ -90,7 +90,7 @@ class ImagesForm extends StatelessWidget {
             if(state.hasError)
                 Container(
                   alignment: Alignment.centerLeft,
-                  margin: const EdgeInsets.only(top: 2,left: 10),
+                  margin: const EdgeInsets.only(top: 10,left: 10),
                   child: Text(
                     state.errorText,
                     style: const TextStyle(
