@@ -23,7 +23,7 @@ class Product extends ChangeNotifier{
   String description;
   List<String> images;
   List<ItemSize> sizes;
-
+  List<dynamic> newimages;
   ItemSize _selectedSize;
 
   ItemSize get selectedSize => _selectedSize;
@@ -71,5 +71,10 @@ class Product extends ChangeNotifier{
       images: List.from(images),
       sizes: sizes.map((size) => size.clone()).toList()
     );
+  }
+
+  @override
+  String toString() {
+    return 'Product{id: $id, name: $name, description: $description, images: $images, sizes: $sizes, newimages: $newimages}';
   }
 }
