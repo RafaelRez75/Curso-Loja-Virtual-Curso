@@ -9,11 +9,13 @@ class SizesForm extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return FormField<List<ItemSize>>(
-      initialValue: List.from(product.sizes),
+      initialValue: product.sizes,
       validator: (sizes){
-        if(sizes.isEmpty)
+        if(sizes.isEmpty) {
           return 'Insira um tamanho';
+        }else{
         return null;
+        }
       },
       builder: (state){
         return Column(
