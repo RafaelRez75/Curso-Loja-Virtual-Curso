@@ -24,7 +24,7 @@ class ImagesForm extends StatelessWidget {
           return null;
         }
       },
-      onSaved: (images) => product.newimages = images,
+      onSaved: (images) => product.newImages = images,
       autovalidate: true,
       builder: (state){
         void onImageSelected(File file){

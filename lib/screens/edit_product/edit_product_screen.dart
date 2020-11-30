@@ -1,22 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:lojavirtual/models/product.dart';
+import 'package:lojavirtual/screens/edit_product/components/images_form.dart';
 import 'package:lojavirtual/screens/edit_product/components/sizes_form.dart';
-
-import 'components/images_form.dart';
-
 class EditProductScreen extends StatelessWidget {
-
-   EditProductScreen(Product p) : editing = p != null, product = p != null ? p.clone() : Product();
-
-  final bool editing;
+  EditProductScreen(Product p) :
+        editing = p != null,
+        product = p != null ? p.clone() : Product();
   final Product product;
-
+  final bool editing;
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
-
   @override
   Widget build(BuildContext context) {
     final primaryColor = Theme.of(context).primaryColor;
-
     return Scaffold(
       appBar: AppBar(
         title: Text(editing ? 'Editar Produto' : 'Criar Produto'),
@@ -36,54 +31,50 @@ class EditProductScreen extends StatelessWidget {
                   TextFormField(
                     initialValue: product.name,
                     decoration: const InputDecoration(
-                        hintText: 'Título',
-                        border: InputBorder.none
+                      hintText: 'Título',
+                      border: InputBorder.none,
                     ),
                     style: TextStyle(
                         fontSize: 20,
                         fontWeight: FontWeight.w600
                     ),
                     validator: (name){
-                      if(name.length < 6) {
+                      if(name.length < 6)
                         return 'Título muito curto';
-                      }else {
-                        return null;
-                      }
+                      return null;
                     },
-                    onSaved: (name)=> product.name = name,
+                    onSaved: (name) => product.name = name,
                   ),
                   Padding(
-                   padding: const EdgeInsets.only(top: 8),
-                   child: Text(
-                     'A Partir De',
-                     style: TextStyle(
-                       color: Colors.grey[600],
-                       fontSize: 13
-                     ),
-                   ),
+                    padding: const EdgeInsets.only(top: 4),
+                    child: Text(
+                      'A partir de',
+                      style: TextStyle(
+                        color: Colors.grey[600],
+                        fontSize: 13,
+                      ),
+                    ),
                   ),
                   Text(
                     'R\$ ...',
                     style: TextStyle(
                       fontSize: 22,
                       fontWeight: FontWeight.bold,
-                      color: primaryColor
+                      color: primaryColor,
                     ),
                   ),
                   Padding(
-                    padding: const EdgeInsets.only(top: 16, bottom: 4),
+                    padding: const EdgeInsets.only(top: 16),
                     child: Text(
                       'Descrição',
                       style: TextStyle(
-                        fontSize: 16,
-                        fontWeight: FontWeight.w500
-                      ),
+                          fontSize: 16, fontWeight: FontWeight.w500),
                     ),
                   ),
                   TextFormField(
                     initialValue: product.description,
                     style: const TextStyle(
-                      fontSize: 16
+                        fontSize: 16
                     ),
                     decoration: const InputDecoration(
                         hintText: 'Descrição',
@@ -91,11 +82,9 @@ class EditProductScreen extends StatelessWidget {
                     ),
                     maxLines: null,
                     validator: (desc){
-                      if(desc.length < 10) {
-                        return 'Descrição Muito Curta';
-                      }else{
-                        return null;
-                      }
+                      if(desc.length < 10)
+                        return 'Descrição muito curta';
+                      return null;
                     },
                     onSaved: (desc) => product.description = desc,
                   ),
@@ -106,9 +95,10 @@ class EditProductScreen extends StatelessWidget {
                     child: RaisedButton(
                       onPressed: (){
                         if(formKey.currentState.validate()){
-                            formKey.currentState.save();
-                        } else {
-                          print('Inválido');
+                          formKey.currentState.save();
+
+                          print(product);
+                          product.save();
                         }
                       },
                       textColor: Colors.white,
@@ -116,12 +106,10 @@ class EditProductScreen extends StatelessWidget {
                       disabledColor: primaryColor.withAlpha(100),
                       child: const Text(
                         'Salvar',
-                      style: TextStyle(
-                        fontSize: 18
-                      ),
+                        style: TextStyle(fontSize: 18.0),
                       ),
                     ),
-                  )
+                  ),
                 ],
               ),
             )
