@@ -1,5 +1,4 @@
 import 'dart:io';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/cupertino.dart';
@@ -18,13 +17,10 @@ class Product extends ChangeNotifier {
     sizes = (document.data['sizes'] as List<dynamic> ?? []).map(
             (s) => ItemSize.fromMap(s as Map<String, dynamic>)).toList();
   }
-
   final Firestore firestore = Firestore.instance;
   final FirebaseStorage storage = FirebaseStorage.instance;
-
   DocumentReference get firestoreRef => firestore.document('products/$id');
-  StorageReference get storageRef => storage.ref().child('products');
-
+  StorageReference get storageRef => storage.ref().child('products').child(id);
   String id;
   String name;
   String description;
@@ -62,53 +58,48 @@ class Product extends ChangeNotifier {
       return null;
     }
   }
-
   List<Map<String, dynamic>> exportSizeList(){
     return sizes.map((size) => size.toMap()).toList();
   }
-
   Future<void> save() async {
     final Map<String, dynamic> data = {
       'name': name,
       'description': description,
       'sizes': exportSizeList(),
     };
-
-    if (id == null) {
+    if(id == null){
       final doc = await firestore.collection('products').add(data);
       id = doc.documentID;
     } else {
       await firestoreRef.updateData(data);
     }
 
-    // IMAGES [URL1, URL2, URL3]
-    // NEWIMAGES [URL2, URL3, FILE1, FILE2]
-    // UPDATED [URL2, URL3, FURL1, FURL2]
-
-    // MANDA FILE1 PRO STORAGE -> FURL1
-    // MANDA FILE2 PRO STORAGE -> FURL2
-    // EXCLUI IMAGEM URL1 DO STORAGE
-
-    // IMAGES [URL1, URL2, URL3]
-    // NEWIMAGES [URL3, FILE1]
-    // UPDATE [URL3, FURL1]
-
-    // MANDA FILE1 PRO STORAGE -> FURL1
-    // EXCLUIR URL1 DO STORAGE
-    // EXCLUIR URL2 DO STORAGE
 
     final List<String> updateImages = [];
 
-    for (final newImage in newImages) {
+    for(final newImage in newImages){
       if(images.contains(newImage)){
         updateImages.add(newImage as String);
-      }else{
+      } else {
         final StorageUploadTask task = storageRef.child(Uuid().v1()).putFile(newImage as File);
         final StorageTaskSnapshot snapshot = await task.onComplete;
         final String url = await snapshot.ref.getDownloadURL() as String;
         updateImages.add(url);
       }
     }
+
+    for(final image in images){
+      if(!newImages.contains(image)){
+        try {
+          final ref = await storage.getReferenceFromUrl(image);
+          await ref.delete();
+        } catch (e){
+          debugPrint('Falha ao deletar $image');
+        }
+      }
+    }
+
+    await firestoreRef.updateData({'images': updateImages});
   }
 
   Product clone(){
