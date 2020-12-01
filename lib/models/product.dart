@@ -5,6 +5,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:lojavirtual/models/item_size.dart';
 import 'package:uuid/uuid.dart';
 class Product extends ChangeNotifier {
+
   Product({this.id, this.name, this.description, this.images, this.sizes}){
     images = images ?? [];
     sizes = sizes ?? [];
@@ -17,22 +18,40 @@ class Product extends ChangeNotifier {
     sizes = (document.data['sizes'] as List<dynamic> ?? []).map(
             (s) => ItemSize.fromMap(s as Map<String, dynamic>)).toList();
   }
+
+
   final Firestore firestore = Firestore.instance;
   final FirebaseStorage storage = FirebaseStorage.instance;
+
   DocumentReference get firestoreRef => firestore.document('products/$id');
+
   StorageReference get storageRef => storage.ref().child('products').child(id);
+
   String id;
   String name;
   String description;
+
   List<String> images;
   List<ItemSize> sizes;
   List<dynamic> newImages;
+
+  bool _loading = false;
+  bool get loading => _loading;
+  set loading(bool value){
+    _loading = value;
+    notifyListeners();
+  }
+
+
+
   ItemSize _selectedSize;
   ItemSize get selectedSize => _selectedSize;
   set selectedSize(ItemSize value){
     _selectedSize = value;
     notifyListeners();
   }
+
+
   int get totalStock {
     int stock = 0;
     for(final size in sizes){
@@ -40,17 +59,24 @@ class Product extends ChangeNotifier {
     }
     return stock;
   }
+
+
   bool get hasStock {
     return totalStock > 0;
   }
+
+
   num get basePrice {
     num lowest = double.infinity;
     for(final size in sizes){
-      if(size.price < lowest && size.hasStock)
+      if(size.price < lowest && size.hasStock) {
         lowest = size.price;
+      }
     }
     return lowest;
   }
+
+
   ItemSize findSize(String name){
     try {
       return sizes.firstWhere((s) => s.name == name);
@@ -58,10 +84,15 @@ class Product extends ChangeNotifier {
       return null;
     }
   }
+
+
   List<Map<String, dynamic>> exportSizeList(){
     return sizes.map((size) => size.toMap()).toList();
   }
+
+
   Future<void> save() async {
+    loading = true;
     final Map<String, dynamic> data = {
       'name': name,
       'description': description,
@@ -100,6 +131,9 @@ class Product extends ChangeNotifier {
     }
 
     await firestoreRef.updateData({'images': updateImages});
+    images = updateImages;
+
+    loading = false;
   }
 
   Product clone(){
