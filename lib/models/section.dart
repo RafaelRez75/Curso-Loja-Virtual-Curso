@@ -8,7 +8,9 @@ class Section{
     items = (document.data['items'] as List).map((i) => SectionItem.fromMap(i as Map<String, dynamic>)).toList();
   }
 
-  Section({this.name, this.type, this.items});
+  Section({this.name, this.type, this.items}){
+    items = items ?? [];
+  }
 
   @override
   String toString() {

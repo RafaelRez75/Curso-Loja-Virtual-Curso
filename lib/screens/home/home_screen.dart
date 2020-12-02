@@ -5,6 +5,7 @@ import 'file:///C:/Users/Public/loja_virtual/lib/common/custom_drawer/custom_dra
 import 'package:lojavirtual/screens/home/components/section_list.dart';
 import 'package:provider/provider.dart';
 import 'package:lojavirtual/screens/home/components/section_staggered.dart';
+import 'package:lojavirtual/screens/home/components/add_section_widget.dart';
 
 class HomeScreen extends StatelessWidget {
   @override
@@ -91,6 +92,9 @@ class HomeScreen extends StatelessWidget {
                       }
                   ).toList();
 
+                  if (homeManager.editing){
+                    children.add(AddSectionWidget());
+                  }
                   return SliverList(
                     delegate: SliverChildListDelegate(children),
                   );
