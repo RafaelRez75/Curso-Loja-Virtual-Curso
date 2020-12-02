@@ -51,7 +51,7 @@ class HomeScreen extends StatelessWidget {
                               if(e == 'Salvar'){
                                 homeManager.saveEditing();
                               }else{
-                                homeManager.discartEditing();
+                                homeManager.discardEditing();
                               }
                             },
                             itemBuilder: (_){
