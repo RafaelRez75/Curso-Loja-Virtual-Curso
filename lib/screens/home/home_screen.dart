@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:lojavirtual/models/home_manager.dart';
+import 'package:lojavirtual/models/user_manager.dart';
 import 'file:///C:/Users/Public/loja_virtual/lib/common/custom_drawer/custom_drawer.dart';
 import 'package:lojavirtual/screens/home/components/section_list.dart';
 import 'package:provider/provider.dart';
@@ -41,6 +42,38 @@ class HomeScreen extends StatelessWidget {
                     color: Colors.white,
                     onPressed: () => Navigator.of(context).pushNamed('/cart'),
                   ),
+                  Consumer2<UserManager, HomeManager>(
+                    builder: (_, userManager, homeManager, __){
+                      if(userManager.adminEnabled) {
+                        if(homeManager.editing){
+                          return PopupMenuButton(
+                            onSelected: (e){
+                              if(e == 'Salvar'){
+                                homeManager.saveEditing();
+                              }else{
+                                homeManager.discartEditing();
+                              }
+                            },
+                            itemBuilder: (_){
+                              return ['Salvar', 'Descartar'].map((e){
+                                return PopupMenuItem(
+                                  value: e,
+                                  child: Text(e),
+                                );
+                              }).toList();
+                            },
+                          );
+                        }else {
+                          return IconButton(
+                            icon: Icon(Icons.edit),
+                            onPressed: () {
+                                homeManager.enterEditing();
+                            },
+                          );
+                        }
+                      } else return Container();
+                    }
+                  )
                 ],
               ),
               Consumer<HomeManager>(
