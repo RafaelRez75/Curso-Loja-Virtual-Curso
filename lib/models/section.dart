@@ -22,6 +22,10 @@ class Section extends ChangeNotifier{
     items.add(item);
     notifyListeners();
   }
+  void removeItem(SectionItem item){
+    items.remove(item);
+    notifyListeners();
+  }
 
   Section clone(){
     return Section(
