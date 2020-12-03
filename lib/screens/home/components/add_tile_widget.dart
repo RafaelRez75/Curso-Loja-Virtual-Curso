@@ -1,14 +1,19 @@
 import 'dart:io';
-
+import 'package:provider/provider.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:lojavirtual/models/section.dart';
+import 'package:lojavirtual/models/section_item.dart';
 import 'package:lojavirtual/screens/edit_product/components/image_source_sheet.dart';
 
 class AddTileWidget extends StatelessWidget {
+
   @override
   Widget build(BuildContext context) {
+    final section = context.watch<Section>();
     void onImageSelected(File file){
-
+      section.addItem(SectionItem(image: file));
+      Navigator.of(context).pop();
     }
     return AspectRatio(
       aspectRatio: 1,

@@ -6,13 +6,9 @@ import 'package:provider/provider.dart';
 
 class SectionHeader extends StatelessWidget {
 
-  const SectionHeader(this.section);
-
-  final Section section;
-
   @override
   Widget build(BuildContext context) {
-
+    final section = context.watch<Section>();
     final homeManager = context.watch<HomeManager>();
     if(homeManager.editing){
      return Row(

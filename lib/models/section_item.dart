@@ -12,7 +12,7 @@ class SectionItem{
     return 'SectionItem{image: $image, product: $product}';
   }
 
-  String image;
+  dynamic image;
   String product;
 
   SectionItem clone(){

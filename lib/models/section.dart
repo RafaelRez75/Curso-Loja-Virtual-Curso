@@ -1,7 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/material.dart';
 import 'package:lojavirtual/models/section_item.dart';
 
-class Section{
+class Section extends ChangeNotifier{
   Section.fromDocument(DocumentSnapshot document){
     name = document.data['name'] as String;
     type = document.data['type'] as String;
@@ -15,6 +16,11 @@ class Section{
   @override
   String toString() {
     return 'Section{name: $name, type: $type, items: $items}';
+  }
+
+  void addItem(SectionItem item){
+    items.add(item);
+    notifyListeners();
   }
 
   Section clone(){
