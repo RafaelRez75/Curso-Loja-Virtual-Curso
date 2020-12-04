@@ -3,13 +3,31 @@ import 'package:flutter/material.dart';
 import 'package:lojavirtual/models/section_item.dart';
 
 class Section extends ChangeNotifier{
-  Section.fromDocument(DocumentSnapshot document){
-    name = document.data['name'] as String;
-    type = document.data['type'] as String;
-    items = (document.data['items'] as List).map((i) => SectionItem.fromMap(i as Map<String, dynamic>)).toList();
+
+  String id;
+  String name;
+  String type;
+  List<SectionItem> items;
+  final Firestore firestore = Firestore.instance;
+  DocumentReference get firestoreRef => firestore.document('home/$id');
+
+  String _error;
+  String get error => _error;
+  set error(String value){
+    _error = value;
+    notifyListeners();
   }
 
-  Section({this.name, this.type, this.items}){
+  Section.fromDocument(DocumentSnapshot document){
+    id = document.documentID;
+    name = document.data['name'] as String;
+    type = document.data['type'] as String;
+    items = (document.data['items'] as List).map(
+              (i) => SectionItem.fromMap(i as Map<String, dynamic>)
+            ).toList();
+  }
+
+  Section({this.id, this.name, this.type, this.items}){
     items = items ?? [];
   }
 
@@ -38,23 +56,27 @@ class Section extends ChangeNotifier{
     return error == null;
   }
 
+
+  Future<void> save() async{
+      final Map<String, dynamic> data = {
+        'name': name,
+        'type': type
+      };
+
+      if(id == null){
+          final doc = await firestore.collection('home').add(data);
+          id = doc.documentID;
+      }else{
+        await firestoreRef.updateData(data);
+      }
+  }
+
   Section clone(){
     return Section(
+      id: id,
       name: name,
       type: type,
       items: items.map((e) => e.clone()).toList(),
     );
   }
-
-  String name;
-  String type;
-  List<SectionItem> items;
-
-  String _error;
-  String get error => _error;
-  set error(String value){
-    _error = value;
-    notifyListeners();
-  }
-
 }
