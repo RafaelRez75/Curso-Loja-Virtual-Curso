@@ -13,6 +13,7 @@ import 'models/product.dart';
 import 'models/product_manager.dart';
 import 'models/user_manager.dart';
 import 'screens/edit_product/edit_product_screen.dart';
+import 'screens/select_product/select_product_screen.dart';
 
 
 void main() {
@@ -68,6 +69,10 @@ class MyApp extends StatelessWidget {
             case '/signup':
               return MaterialPageRoute(
                   builder: (_) => SignUpScreen()
+              );
+            case '/select_product':
+              return MaterialPageRoute(
+                  builder: (_) => SelectProductScreen()
               );
             case '/product':
               return MaterialPageRoute(
