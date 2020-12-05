@@ -21,7 +21,7 @@ import 'screens/select_product/select_product_screen.dart';
 void main() {
   runApp(MyApp());
 
-  CepAbertoService().getAddressFromCep('12241380');
+  CepAbertoService().getAddressFromCep('12.241-380').then((address) => print(address));
 }
 class MyApp extends StatelessWidget {
   @override
