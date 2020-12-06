@@ -16,6 +16,8 @@ class CartManager extends ChangeNotifier {
 
   num productsPrice = 0.0;
 
+  num deliveryPrice;
+
   void updateUser(UserManager userManager){
     user = userManager.user;
     items.clear();
@@ -27,26 +29,43 @@ class CartManager extends ChangeNotifier {
   }
 
 
-  void setAddress(Address address){
+  Future<void> setAddress(Address address) async{
     this.address = address;
 
-  calculateDelivery(address.lat, address.long);
+  if(await calculateDelivery(address.lat, address.long)){
+    print(deliveryPrice);
+
+    }else{
+      return Future.error('Endereço fora do raio de entrega :(');
+    }
+
   }
 
 
-  Future<void> calculateDelivery(double lat, double long) async {
+  Future<bool> calculateDelivery(double lat, double long) async {
 
     final DocumentSnapshot doc = await Firestore.instance.document('aux/delivery').get();
 
     final latStore = doc.data['lat'] as double;
     final longStore = doc.data['long'] as double;
     final maxkm = doc.data['maxkm'] as num;
+    final base = doc.data['base'] as num;
+    final km = doc.data['km'] as num;
 
-      double dis = await Geolocator.distanceBetween(latStore, longStore, lat, long);
+    double dis = await Geolocator.distanceBetween(latStore, longStore, lat, long);
 
-      dis /= 1000.0;
+    dis /= 1000.0;
 
-  print(dis);
+    print(dis);
+
+    if(dis> maxkm){
+        return false;
+      }
+
+    deliveryPrice = base + dis * km;
+
+    return true;
+
 
   }
 
