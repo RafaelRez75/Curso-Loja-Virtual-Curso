@@ -6,7 +6,6 @@ import 'package:lojavirtual/models/product.dart';
 import 'package:lojavirtual/models/user.dart';
 import 'package:lojavirtual/models/user_manager.dart';
 import 'package:lojavirtual/services/cepaberto_service.dart';
-
 class CartManager extends ChangeNotifier {
 
   List<CartProduct> items = [];
@@ -19,17 +18,27 @@ class CartManager extends ChangeNotifier {
   void updateUser(UserManager userManager){
     user = userManager.user;
     items.clear();
+
     if(user != null){
       _loadCartItems();
     }
+    
   }
+
+
+
   Future<void> _loadCartItems() async {
+
     final QuerySnapshot cartSnap = await user.cartReference.getDocuments();
     items = cartSnap.documents.map(
             (d) => CartProduct.fromDocument(d)..addListener(_onItemUpdated)
     ).toList();
   }
+
+
+
   void addToCart(Product product){
+
     try {
       final e = items.firstWhere((p) => p.stackable(product));
       e.increment();
@@ -43,12 +52,18 @@ class CartManager extends ChangeNotifier {
     }
     notifyListeners();
   }
+
+
+
   void removeOfCart(CartProduct cartProduct){
     items.removeWhere((p) => p.id == cartProduct.id);
     user.cartReference.document(cartProduct.id).delete();
     cartProduct.removeListener(_onItemUpdated);
     notifyListeners();
   }
+
+
+
   void _onItemUpdated(){
     productsPrice = 0.0;
     for(int i = 0; i<items.length; i++){
@@ -63,26 +78,31 @@ class CartManager extends ChangeNotifier {
     }
     notifyListeners();
   }
+
+
+
   void _updateCartProduct(CartProduct cartProduct){
-    if(cartProduct.id != null) {
+    if(cartProduct.id != null)
       user.cartReference.document(cartProduct.id)
           .updateData(cartProduct.toCartItemMap());
-    }
   }
+
+
+
   bool get isCartValid {
     for(final cartProduct in items){
       if(!cartProduct.hasStock) return false;
     }
     return true;
   }
+
+
+
   // ADDRESS
   Future<void> getAddress(String cep) async {
     final cepAbertoService = CepAbertoService();
-
     try {
-
       final cepAbertoAddress = await cepAbertoService.getAddressFromCep(cep);
-
       if(cepAbertoAddress != null){
         address = Address(
             street: cepAbertoAddress.logradouro,
@@ -99,4 +119,10 @@ class CartManager extends ChangeNotifier {
       debugPrint(e.toString());
     }
   }
+
+  void removeAddress(){
+    address = null;
+    notifyListeners();
+  }
+
 }
