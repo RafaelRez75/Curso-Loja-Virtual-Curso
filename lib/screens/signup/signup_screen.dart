@@ -34,10 +34,11 @@ class SignUpScreen extends StatelessWidget {
                     decoration: const InputDecoration(hintText: 'Nome Completo'),
                     enabled: !userManager.loading,
                     validator: (name){
-                      if(name.isEmpty)
+                      if(name.isEmpty) {
                         return 'Campo obrigatório';
-                      else if(name.trim().split(' ').length <= 1)
+                      } else if(name.trim().split(' ').length <= 1) {
                         return 'Preencha seu Nome completo';
+                      }
                       return null;
                     },
                     onSaved: (name) => user.name = name,
@@ -48,10 +49,11 @@ class SignUpScreen extends StatelessWidget {
                     enabled: !userManager.loading,
                     keyboardType: TextInputType.emailAddress,
                     validator: (email){
-                      if(email.isEmpty)
+                      if(email.isEmpty) {
                         return 'Campo obrigatório';
-                      else if(!emailValid(email))
+                      } else if(!emailValid(email)) {
                         return 'E-mail inválido';
+                      }
                       return null;
                     },
                     onSaved: (email) => user.email = email,
@@ -63,10 +65,11 @@ class SignUpScreen extends StatelessWidget {
                     enabled: !userManager.loading,
                     obscureText: true,
                     validator: (pass){
-                      if(pass.isEmpty)
+                      if(pass.isEmpty) {
                         return 'Campo obrigatório';
-                      else if(pass.length < 6)
+                      } else if(pass.length < 6) {
                         return 'Senha muito curta';
+                      }
                       return null;
                     },
                     onSaved: (pass) => user.password = pass,
@@ -77,10 +80,11 @@ class SignUpScreen extends StatelessWidget {
                     enabled: !userManager.loading,
                     obscureText: true,
                     validator: (pass){
-                      if(pass.isEmpty)
+                      if(pass.isEmpty) {
                         return 'Campo obrigatório';
-                      else if(pass.length < 6)
+                      } else if(pass.length < 6) {
                         return 'Senha muito curta';
+                      }
                       return null;
                     },
                     onSaved: (pass) => user.confirmPassword = pass,

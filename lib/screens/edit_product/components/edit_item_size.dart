@@ -18,8 +18,9 @@ class EditItemSize extends StatelessWidget {
             initialValue: size.name,
             decoration: const InputDecoration( labelText: 'Título', isDense: true,),
             validator: (name){
-              if(name.isEmpty)
+              if(name.isEmpty) {
                 return 'Inválido';
+              }
               return null;
             },
             onChanged: (name) => size.name = name,
@@ -33,8 +34,9 @@ class EditItemSize extends StatelessWidget {
             decoration: const InputDecoration(labelText: 'Estoque', isDense: true,),
             keyboardType: TextInputType.number,
             validator: (stock){
-              if(int.tryParse(stock) == null)
+              if(int.tryParse(stock) == null) {
                 return 'Inválido';
+              }
               return null;
             },
             onChanged: (stock) => size.stock = int.tryParse(stock),
@@ -48,8 +50,9 @@ class EditItemSize extends StatelessWidget {
             decoration: const InputDecoration(labelText: 'Preço', isDense: true, prefixText: 'R\$'),
             keyboardType: const TextInputType.numberWithOptions(decimal: true),
             validator: (price){
-              if(num.tryParse(price) == null)
+              if(num.tryParse(price) == null) {
                 return 'Inválido';
+              }
               return null;
             },
             onChanged: (price) => size.price = num.tryParse(price),

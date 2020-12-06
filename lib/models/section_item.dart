@@ -5,6 +5,7 @@ class SectionItem{
     product = map['product'] as String;
   }
 
+  // ignore: sort_unnamed_constructors_first
   SectionItem({this.image, this.product});
 
   @override

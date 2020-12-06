@@ -31,10 +31,11 @@ class HomeManager extends ChangeNotifier {
     notifyListeners();
   }
   List<Section> get sections {
-    if(editing)
+    if(editing) {
       return _editingSections;
-    else
+    } else {
       return _sections;
+    }
   }
   void enterEditing(){
     editing = true;

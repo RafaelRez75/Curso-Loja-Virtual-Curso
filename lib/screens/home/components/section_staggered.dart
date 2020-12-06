@@ -34,11 +34,11 @@ class SectionStaggered extends StatelessWidget {
                   physics: const NeverScrollableScrollPhysics(),
                   itemCount: homeManager.editing ? section.items.length + 1 : section.items.length,
                   itemBuilder: (_, index){
-                    if(index < section.items.length)
+                    if(index < section.items.length) {
                       return ItemTile(
                           section.items[index]
                       );
-                    else {
+                    } else {
                       return AddTileWidget();
                     }
                   },
