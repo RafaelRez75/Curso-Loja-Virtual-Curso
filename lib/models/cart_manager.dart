@@ -28,12 +28,23 @@ class CartManager extends ChangeNotifier {
 
   void updateUser(UserManager userManager){
     user = userManager.user;
+    num productsPrice = 0.0;
     items.clear();
+    removeAddress();
+
     if(user != null){
       _loadCartItems();
+      _loadUserAddress();
     }
+
   }
 
+  Future<void> _loadUserAddress() async{
+    if(user.address !=null && await calculateDelivery(user.address.lat, user.address.long)){
+      address = user.address;
+      notifyListeners();
+    }
+  }
 
 
   Future<void> _loadCartItems() async {
@@ -143,7 +154,7 @@ class CartManager extends ChangeNotifier {
     this.address = address;
 
     if(await calculateDelivery(address.lat, address.long)){
-
+      user.setAddress(address);
       loading = false;
     } else {
       loading = false;
