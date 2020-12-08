@@ -31,6 +31,8 @@ import 'package:lojavirtual/models/product.dart';
     int quantity;
     String size;
 
+    num fixedPrice;
+
     Product _product;
     Product get product => _product;
     set product(Product value){
@@ -63,6 +65,7 @@ import 'package:lojavirtual/models/product.dart';
         'pid': productId,
         'quantity': quantity,
         'size': size,
+        'fixedPrice': fixedPrice ?? unitPrice,
       };
     }
 
