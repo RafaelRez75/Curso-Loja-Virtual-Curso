@@ -23,7 +23,7 @@ class CheckoutScreen extends StatelessWidget {
                 PriceCard(
                   buttonText: 'Finalizar Pedido',
                   onPressed: (){
-
+                    checkoutManager.checkout();
                   },
                 )
               ],
