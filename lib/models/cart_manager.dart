@@ -39,6 +39,14 @@ class CartManager extends ChangeNotifier {
 
   }
 
+  void clear(){
+    for (final cartProduct in items){
+      user.cartReference.document(cartProduct.id).delete();
+    }
+    items.clear();
+    notifyListeners();
+  }
+
   Future<void> _loadUserAddress() async{
     if(user.address !=null && await calculateDelivery(user.address.lat, user.address.long)){
       address = user.address;
