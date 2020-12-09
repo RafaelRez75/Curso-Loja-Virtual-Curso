@@ -39,6 +39,7 @@ class OrderProductTile extends StatelessWidget {
                   Text(
                     'Tamanho: ${cartProduct.size}',
                     style: TextStyle(fontWeight: FontWeight.w400),
+
                   ),
                   Text(
                     'R\$ ${(cartProduct.fixedPrice ?? cartProduct.unitPrice)
