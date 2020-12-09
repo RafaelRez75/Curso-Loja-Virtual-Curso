@@ -38,13 +38,13 @@ class OrderProductTile extends StatelessWidget {
                   ),
                   Text(
                     'Tamanho: ${cartProduct.size}',
-                    style: TextStyle(fontWeight: FontWeight.w300),
+                    style: TextStyle(fontWeight: FontWeight.w400),
                   ),
                   Text(
                     'R\$ ${(cartProduct.fixedPrice ?? cartProduct.unitPrice)
                         .toStringAsFixed(2)}',
                     style: TextStyle(
-                        color: Theme.of(context).primaryColor,
+                        color: Colors.white,
                         fontSize: 14.0,
                         fontWeight: FontWeight.bold
                     ),

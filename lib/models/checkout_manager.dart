@@ -39,7 +39,7 @@ class CheckoutManager extends ChangeNotifier {
 
     cartManager.clear();
 
-    onSuccess();
+    onSuccess(order);
     loading = false;
 
   }

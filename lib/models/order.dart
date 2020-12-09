@@ -44,7 +44,8 @@ class Order {
   Timestamp date;
 
 
-  String get formattedId => '#${orderId.padLeft(4, '0')}';
+  // ignore: unnecessary_string_interpolations
+  String get formattedId => '${orderId.padLeft(4, '0')}';
   @override
   String toString() {
     return 'Order{firestore: $firestore, orderId: $orderId, items: $items, price: $price, userId: $userId, address: $address, date: $date}';
