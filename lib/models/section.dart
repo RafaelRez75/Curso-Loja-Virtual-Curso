@@ -77,10 +77,9 @@ class Section extends ChangeNotifier {
     }
 
     for (final original in originalItems) {
-      if (!items.contains(original)) {
+      if (!items.contains(original) && (original.image as String).contains('firebase')) {
         try {
-          final ref =
-              await storage.getReferenceFromUrl(original.image as String);
+          final ref = await storage.getReferenceFromUrl(original.image as String);
           await ref.delete();
           // ignore: empty_catches
         } catch (e) {}
@@ -100,14 +99,16 @@ class Section extends ChangeNotifier {
 
   Future<void> delete() async{
     await firestoreRef.delete();
-    for(final item in items){
-      try{
-      final ref = await storage.getReferenceFromUrl(
-        item.image as String
-      );
-      await ref.delete();
-    // ignore: empty_catches
-      }catch(e){}
+    for(final item in items) {
+      if ((item.image as String).contains('firebase')) {
+        try {
+          final ref = await storage.getReferenceFromUrl(
+              item.image as String
+          );
+          await ref.delete();
+          // ignore: empty_catches
+        } catch (e) {}
+      }
     }
   }
 

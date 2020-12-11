@@ -1,4 +1,5 @@
 import 'dart:io';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/cupertino.dart';
@@ -120,7 +121,7 @@ class Product extends ChangeNotifier {
     }
 
     for(final image in images){
-      if(!newImages.contains(image)){
+      if(!newImages.contains(image) && image.contains('firebase')){
         try {
           final ref = await storage.getReferenceFromUrl(image);
           await ref.delete();
