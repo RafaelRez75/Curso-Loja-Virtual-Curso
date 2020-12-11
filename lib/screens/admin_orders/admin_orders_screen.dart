@@ -69,7 +69,8 @@ class AdminOrdersScreen extends StatelessWidget {
                               );
                             }
                         ),
-                      )
+                      ),
+                    const SizedBox(height: 120,)
                   ],
               ),
               minHeight: 40,
@@ -104,11 +105,16 @@ class AdminOrdersScreen extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: Status.values.map((s){
                         return CheckboxListTile(
-                          title: Text(Order.getStatusText(s), style: TextStyle(fontSize: 15),),
+                          title: Text(
+                            Order.getStatusText(s),
+                            style: const TextStyle(fontSize: 15),),
                           dense: true,
-                          value: true,
+                          value: ordersManager.statusFilter.contains(s),
                           onChanged: (v){
-
+                              ordersManager.setStatusFilter(
+                                status: s,
+                                enabled: v
+                              );
                           },
                         );
                        }).toList(),
