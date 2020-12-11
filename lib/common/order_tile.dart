@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:lojavirtual/common/order/cancel_order_dialog.dart';
+import 'package:lojavirtual/common/order/export_address_dialog.dart';
 import 'package:lojavirtual/models/order.dart';
 import 'package:lojavirtual/screens/orders/component/order_product_tile.dart';
 class OrderTile extends StatelessWidget {
@@ -62,7 +64,12 @@ class OrderTile extends StatelessWidget {
                     child: IconButton (
                         icon: Icon(Icons.cancel),
                         color: Colors.red,
-                        onPressed: order.cancel,
+                        onPressed: (){
+                          showDialog(
+                            context: context,
+                            builder: (_) => CancelOrderDialog(order)
+                          );
+                        },
                     ),
                   ),
                   Padding(
@@ -82,8 +89,11 @@ class OrderTile extends StatelessWidget {
                   IconButton (
                       icon: Icon(Icons.pin_drop),
                       onPressed: (){
-
-                      }
+                      showDialog(
+                          context: context,
+                          builder: (_) => ExportAddressDialog(order.address)
+                      );
+                    },
                   ),
                 ],
               ),
