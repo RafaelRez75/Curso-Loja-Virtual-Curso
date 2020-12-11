@@ -42,6 +42,36 @@ class Order {
         }
     );
   }
+
+  Function() get back {
+    return status.index >= Status.transporting.index ?
+        (){
+      status = Status.values[status.index - 1];
+      firestoreRef.updateData({'status': status.index});
+        } : null;
+  }
+
+  Function() get advance {
+    return status.index <= Status.transporting.index ?
+        (){
+      status = Status.values[status.index + 1];
+      firestoreRef.updateData({'status': status.index});
+        } : null;
+  }
+
+  void cancel(){
+    status = Status.canceled;
+    firestoreRef.updateData({'status': status.index});
+  }
+
+
+  DocumentReference get firestoreRef =>
+      firestore.collection('orders').document(orderId);
+
+  void updateFromDocument(DocumentSnapshot doc){
+    status = Status.values[doc.data['status'] as int];
+  }
+
   String orderId;
   List<CartProduct> items;
   num price;
@@ -53,6 +83,7 @@ class Order {
 
   Timestamp date;
 
+  // ignore: unnecessary_string_interpolations
   String get formattedId => '${orderId.padLeft(4, '0')}';
 
   String get statusText => getStatusText(status);

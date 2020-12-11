@@ -1,17 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:lojavirtual/models/order.dart';
 import 'package:lojavirtual/screens/orders/component/order_product_tile.dart';
-
 class OrderTile extends StatelessWidget {
-
-  const OrderTile(this.order);
-
+  const OrderTile(this.order, {this.showControls = false});
   final Order order;
-
+  final bool showControls;
   @override
   Widget build(BuildContext context) {
     final primaryColor = Theme.of(context).primaryColor;
-
     return Card(
       margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 4),
       child: ExpansionTile(
@@ -54,7 +50,44 @@ class OrderTile extends StatelessWidget {
             children: order.items.map((e){
               return OrderProductTile(e);
             }).toList(),
-          )
+          ),
+          if(showControls && order.status != Status.canceled)
+            SizedBox(
+              height: 50,
+              child: ListView(
+                scrollDirection: Axis.horizontal,
+                children: <Widget>[
+                  Padding(
+                    padding: const EdgeInsets.only(right: 52.0, left: 15),
+                    child: IconButton (
+                        icon: Icon(Icons.cancel),
+                        color: Colors.red,
+                        onPressed: order.cancel,
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(right: 52.0),
+                    child: IconButton (
+                        icon: Icon(Icons.arrow_left),
+                        onPressed: order.back,
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(right: 52.0),
+                    child: IconButton (
+                        icon: Icon(Icons.arrow_right),
+                        onPressed: order.advance,
+                    ),
+                  ),
+                  IconButton (
+                      icon: Icon(Icons.pin_drop),
+                      onPressed: (){
+
+                      }
+                  ),
+                ],
+              ),
+            ),
         ],
       ),
     );

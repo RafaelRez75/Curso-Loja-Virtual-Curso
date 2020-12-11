@@ -5,7 +5,7 @@ import 'package:lojavirtual/models/cart_manager.dart';
 import 'package:lojavirtual/screens/cart/components/cart_tile.dart';
 import 'package:provider/provider.dart';
 
-import 'file:///C:/Users/Public/loja_virtual/lib/common/price_card.dart';
+import 'package:lojavirtual/common/price_card.dart';
 
 class CartScreen extends StatelessWidget {
   @override

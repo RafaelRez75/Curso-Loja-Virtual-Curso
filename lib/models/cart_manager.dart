@@ -28,7 +28,7 @@ class CartManager extends ChangeNotifier {
 
   void updateUser(UserManager userManager){
     user = userManager.user;
-    num productsPrice = 0.0;
+    const num productsPrice = 0.0;
     items.clear();
     removeAddress();
 

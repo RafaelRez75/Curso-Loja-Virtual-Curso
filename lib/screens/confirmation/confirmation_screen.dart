@@ -17,7 +17,7 @@ class ConfirmationScreen extends StatelessWidget {
       ),
       body: Center(
         child: Card(
-          color: Color.fromARGB(200, 0, 180, 0),
+          color: const Color.fromARGB(200, 0, 180, 0),
           margin: const EdgeInsets.all(16),
           child: ListView(
             shrinkWrap: true,
