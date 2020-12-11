@@ -29,7 +29,7 @@ class OrderTile extends StatelessWidget {
                   style: TextStyle(
                     fontWeight: FontWeight.w600,
                     color: Colors.black,
-                    fontSize: 14,
+                    fontSize: 14.5,
                   ),
                 ),
               ],
@@ -37,10 +37,10 @@ class OrderTile extends StatelessWidget {
             Text(
               order.statusText,
               style: TextStyle(
-                  fontWeight: FontWeight.w400,
+                  fontWeight: FontWeight.w500,
                   color: order.status == Status.canceled ?
                   Colors.red : primaryColor,
-                  fontSize: 14
+                  fontSize: 15
               ),
             )
           ],
