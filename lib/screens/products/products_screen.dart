@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:lojavirtual/common/custom_drawer/custom_drawer.dart';
 import 'package:lojavirtual/models/product_manager.dart';
 import 'package:lojavirtual/models/user_manager.dart';
 import 'package:lojavirtual/screens/products/components/product_list_tile.dart';
 import 'package:provider/provider.dart';
-
-import 'package:lojavirtual/common/custom_drawer/custom_drawer.dart';
 
 import 'components/search_dialog.dart';
 
@@ -92,7 +91,6 @@ class ProductsScreen extends StatelessWidget {
         builder: (_, productManager, __){
           final filteredProducts = productManager.filteredProducts;
           return ListView.builder(
-            padding: const EdgeInsets.all(4),
             itemCount: filteredProducts.length,
             itemBuilder: (_, index){
               return ProductListTile(filteredProducts[index]);

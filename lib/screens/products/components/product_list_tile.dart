@@ -13,6 +13,7 @@ class ProductListTile extends StatelessWidget {
         Navigator.of(context).pushNamed('/product', arguments: product);
       },
       child: Card(
+        margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 4),
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(4)
         ),
@@ -38,12 +39,13 @@ class ProductListTile extends StatelessWidget {
                       ),
                     ),
                     Padding(
-                      padding: const EdgeInsets.only(top: 4),
+                      padding: const EdgeInsets.only(top: 4, bottom: 2),
                       child: Text(
                         "A Partir de",
                         style: TextStyle(
-                          color: Colors.grey[400],
-                          fontSize: 12,
+                          color: Colors.grey[600],
+                          fontWeight: FontWeight.w500,
+                          fontSize: 14,
                         ),
                       )
                     ),
@@ -54,7 +56,19 @@ class ProductListTile extends StatelessWidget {
                         fontWeight: FontWeight.w800,
                         color: Theme.of(context).primaryColor
                       ),
-                    )
+                    ),
+                    if(!product.hasStock)
+                      const Padding(
+                        padding: EdgeInsets.only(top: 2),
+                        child: Text(
+                          'Sem estoque',
+                          style: TextStyle(
+                              color: Colors.red,
+                              fontSize: 15,
+                              fontWeight: FontWeight.w500
+                          ),
+                        ),
+                      )
                   ],
                 )
               )
