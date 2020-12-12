@@ -113,7 +113,19 @@ class LoginScreen extends StatelessWidget {
                           Buttons.FacebookNew,
                           text: 'Entrar com o Facebook',
                           onPressed: (){
-                              userManager.facebookLogin();
+                              userManager.facebookLogin(
+                                onFail: (e){
+                                  scaffoldKey.currentState.showSnackBar(
+                                      SnackBar(
+                                        content: Text('Falha ao entrar: $e'),
+                                        backgroundColor: Colors.red,
+                                      )
+                                  );
+                                },
+                                onSuccess: (){
+                                  Navigator.of(context).pop();
+                                }
+                              );
                       })
                   ],
                 );
