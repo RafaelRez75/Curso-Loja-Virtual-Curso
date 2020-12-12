@@ -21,6 +21,13 @@ class ProductManager extends ChangeNotifier{
     notifyListeners();
   }
 
+
+  void delete(Product product){
+    product.delete();
+    allProducts.removeWhere((p) => p.id == product.id);
+    notifyListeners();
+  }
+
   List<Product> get filteredProducts{
     final List<Product> filteredProducts = [];
 
@@ -39,7 +46,7 @@ class ProductManager extends ChangeNotifier{
 
   Future<void> _loadAllProducts() async{
     final QuerySnapshot snapProducts =
-      await firestore.collection('products').getDocuments();
+      await firestore.collection('products').where('deleted', isEqualTo: false).getDocuments();
 
     allProducts = snapProducts.documents.map((d) => Product.fromDocument(d)).toList();
 

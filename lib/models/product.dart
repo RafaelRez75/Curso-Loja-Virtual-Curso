@@ -7,7 +7,7 @@ import 'package:lojavirtual/models/item_size.dart';
 import 'package:uuid/uuid.dart';
 class Product extends ChangeNotifier {
 
-  Product({this.id, this.name, this.description, this.images, this.sizes}){
+  Product({this.id, this.name, this.description, this.images, this.sizes, this.deleted = false}){
     images = images ?? [];
     sizes = sizes ?? [];
   }
@@ -18,6 +18,7 @@ class Product extends ChangeNotifier {
     images = List<String>.from(document.data['images'] as List<dynamic>);
     sizes = (document.data['sizes'] as List<dynamic> ?? []).map(
             (s) => ItemSize.fromMap(s as Map<String, dynamic>)).toList();
+    deleted = (document.data['deleted'] ?? false) as bool;
   }
 
 
@@ -31,6 +32,7 @@ class Product extends ChangeNotifier {
   String id;
   String name;
   String description;
+  bool deleted;
 
   List<String> images;
   List<ItemSize> sizes;
@@ -98,6 +100,7 @@ class Product extends ChangeNotifier {
       'name': name,
       'description': description,
       'sizes': exportSizeList(),
+      'deleted': deleted
     };
     if(id == null){
       final doc = await firestore.collection('products').add(data);
@@ -131,6 +134,7 @@ class Product extends ChangeNotifier {
       }
     }
 
+
     await firestoreRef.updateData({'images': updateImages});
     images = updateImages;
 
@@ -144,10 +148,18 @@ class Product extends ChangeNotifier {
       description: description,
       images: List.from(images),
       sizes: sizes.map((size) => size.clone()).toList(),
+      deleted: deleted,
     );
   }
   @override
   String toString() {
     return 'Product{id: $id, name: $name, description: $description, images: $images, sizes: $sizes, newImages: $newImages}';
   }
+
+  void delete(){
+    firestoreRef.updateData({'deleted': true});
+  }
+
+
+
 }
