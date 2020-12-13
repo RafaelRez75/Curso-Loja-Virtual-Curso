@@ -59,7 +59,7 @@ class UserManager extends ChangeNotifier {
 
 
   Future<void> facebookLogin({Function onFail, Function onSuccess}) async {
-    loading = true;
+    loadingFace = true;
     final result = await FacebookLogin().logIn(['email', 'public_profile']);
     switch(result.status){
 
@@ -91,7 +91,7 @@ class UserManager extends ChangeNotifier {
         break;
     }
     
-    loading = false;
+    loadingFace = false;
   }
 
   void signOut(){
@@ -100,10 +100,19 @@ class UserManager extends ChangeNotifier {
     notifyListeners();
   }
 
+
+  bool _loadingFace = false;
+  bool get loadingFace => _loading;
+  set loadingFace(bool value){
+    _loadingFace = value;
+    notifyListeners();
+  }
+
   set loading(bool value){
     _loading = value;
     notifyListeners();
   }
+
   Future<void> _loadCurrentUser({FirebaseUser firebaseUser}) async {
     final FirebaseUser currentUser = firebaseUser ?? await auth.currentUser();
     if(currentUser != null){
