@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:lojavirtual/common/custom_drawer/custom_drawer.dart';
 import 'package:lojavirtual/models/home_manager.dart';
 import 'package:lojavirtual/models/user_manager.dart';
-import 'package:lojavirtual/common/custom_drawer/custom_drawer.dart';
-import 'package:lojavirtual/screens/home/components/section_list.dart';
-import 'package:provider/provider.dart';
-import 'package:lojavirtual/screens/home/components/section_staggered.dart';
 import 'package:lojavirtual/screens/home/components/add_section_widget.dart';
+import 'package:lojavirtual/screens/home/components/section_list.dart';
+import 'package:lojavirtual/screens/home/components/section_staggered.dart';
+import 'package:provider/provider.dart';
 
 class HomeScreen extends StatelessWidget {
   @override
@@ -34,7 +34,7 @@ class HomeScreen extends StatelessWidget {
                 elevation: 0,
                 backgroundColor: Colors.transparent,
                 flexibleSpace: const FlexibleSpaceBar(
-                  title: Text('Loja do Daniel'),
+                  title: Text('Loja do Rafael'),
                   centerTitle: true,
                 ),
                 actions: <Widget>[
