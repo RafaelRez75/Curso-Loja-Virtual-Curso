@@ -37,6 +37,11 @@ class Store {
     print(opening);
   }
 
+
+  String get addressText =>
+      '${address.street}, ${address.number}${address.complement.isNotEmpty ? ' - Complemento: ${address.complement}' : ''}'
+          '\n${address.district}, ${address.city}/${address.state}';
+
   String name;
   String image;
   String phone;
