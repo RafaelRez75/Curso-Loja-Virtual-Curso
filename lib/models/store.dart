@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:lojavirtual/models/address.dart';
+import 'package:lojavirtual/helpers/extensions.dart';
 
 class Store {
 
@@ -42,10 +43,23 @@ class Store {
       '${address.street}, ${address.number}${address.complement.isNotEmpty ? ' - Complemento: ${address.complement}' : ''}'
           '\n${address.district}, ${address.city}/${address.state}';
 
+  String get openingText {
+    return
+      'Seg-Sex: ${formattedPeriod(opening['monfri'])}\n'
+      'Sab: ${formattedPeriod(opening['saturday'])}\n'
+      'Dom: ${formattedPeriod(opening['sunday'])}';
+  }
+
+  String formattedPeriod(Map<String, TimeOfDay> period){
+    if(period == null) return "Fechada";
+    return '${period['from'].formatted()} - ${period['to'].formatted()}';
+  }
+
   String name;
   String image;
   String phone;
   Address address;
-  Map<String, Map> opening;
+  Map<String, Map<String, TimeOfDay>> opening;
+
 
 }

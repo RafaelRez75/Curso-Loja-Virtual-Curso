@@ -17,7 +17,7 @@ class StoreCard extends StatelessWidget {
       child: Column(
         children: <Widget>[
              AspectRatio(
-                 aspectRatio: 1.5,
+                 aspectRatio: 1.4,
                  child: Image.network(
                      store.image,
                      fit: BoxFit.cover),
@@ -29,6 +29,7 @@ class StoreCard extends StatelessWidget {
               children: <Widget>[
                 Expanded(
                   child: Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
                       Text(
