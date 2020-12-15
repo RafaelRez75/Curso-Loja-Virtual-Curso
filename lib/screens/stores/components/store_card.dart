@@ -17,14 +17,14 @@ class StoreCard extends StatelessWidget {
       child: Column(
         children: <Widget>[
              AspectRatio(
-                 aspectRatio: 1.4,
+                 aspectRatio: 1.2,
                  child: Image.network(
                      store.image,
                      fit: BoxFit.cover),
              ),
           Container(
             height: 140,
-            padding: const EdgeInsets.all(16),
+            padding: const EdgeInsets.all(15),
             child: Row(
               children: <Widget>[
                 Expanded(
@@ -36,7 +36,7 @@ class StoreCard extends StatelessWidget {
                         store.name,
                         style: TextStyle(
                           fontWeight: FontWeight.w800,
-                          fontSize: 17,
+                          fontSize: 16,
                         ),
                       ),
                       Text(
@@ -47,6 +47,12 @@ class StoreCard extends StatelessWidget {
                         overflow: TextOverflow.ellipsis,
                         maxLines: 3,
                       ),
+                    Text(
+                      store.openingText,
+                      style: const TextStyle(
+                        fontSize: 15,
+                      ),
+                    ),
                     ],
                   ),
                 ),
