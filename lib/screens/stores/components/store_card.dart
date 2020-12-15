@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:lojavirtual/common/custom_icon_button.dart';
 import 'package:lojavirtual/models/store.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class StoreCard extends StatelessWidget {
   const StoreCard(this.store);
@@ -21,6 +22,19 @@ class StoreCard extends StatelessWidget {
           return Colors.orange;
         default:
           return Colors.green;
+      }
+    }
+
+    Future<void> openPhone() async {
+      if(await canLaunch('tel:${store.cleanPhone}')){
+        launch('tel:${store.cleanPhone}');
+      } else {
+        Scaffold.of(context).showSnackBar(
+            const SnackBar(
+              content: Text('Esta função não está disponível neste dispositivo'),
+              backgroundColor: Colors.red,
+            )
+        );
       }
     }
 
@@ -101,7 +115,7 @@ class StoreCard extends StatelessWidget {
                     CustomIconButton(
                       iconData: Icons.phone,
                       color: primaryColor,
-                      onTap: () {},
+                      onTap: openPhone,
                     ),
                   ],
                 )
@@ -112,4 +126,5 @@ class StoreCard extends StatelessWidget {
       ),
     );
   }
+
 }

@@ -1,7 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:lojavirtual/models/address.dart';
 import 'package:lojavirtual/helpers/extensions.dart';
+import 'package:lojavirtual/models/address.dart';
 
 enum StoreStatus{ closed, open, closing }
 
@@ -93,6 +93,8 @@ class Store {
     }
 
   }
+
+  String get cleanPhone => phone.replaceAll(RegExp(r"[^\d]"), "");
 
   String get statusText {
     switch(status){
