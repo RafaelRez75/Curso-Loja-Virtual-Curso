@@ -7,6 +7,8 @@ import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
 
 class CardFront extends StatelessWidget {
 
+  CardFront({this.numberFocus, this.dateFocus, this.nameFocus, this.finished});
+
   final MaskTextInputFormatter dateFormatter = MaskTextInputFormatter(
     mask: '!#/@###',
     filter: {
@@ -15,6 +17,12 @@ class CardFront extends StatelessWidget {
       '@': RegExp('[2]')
     }
   );
+
+  final VoidCallback finished;
+
+  final FocusNode numberFocus;
+  final FocusNode dateFocus;
+  final FocusNode nameFocus;
 
   @override
   Widget build(BuildContext context) {
@@ -42,28 +50,32 @@ class CardFront extends StatelessWidget {
                       CartaoBancarioInputFormatter()
                     ],
                     validator: (number){
-                      if(number.length != 19) {
+                      if(number.length != 19) return 'Inválido';
+                      else if(detectCCType(number) == CreditCardType.unknown)
                         return 'Inválido';
-                      } else if(detectCCType(number)== CreditCardType.unknown) {
-                        return 'Inválido';
-                      }
                       return null;
                     },
+                    onSubmitted: (_){
+                      dateFocus.requestFocus();
+                    },
+                    focusNode: numberFocus,
                   ),
                   CardTextField(
                     title: 'Validade',
-                    hint: '12/2020',
+                    hint: '11/2020',
                     textInputType: TextInputType.number,
-                    inputFormatters: [
-                      dateFormatter
-                    ],
+                    inputFormatters: [dateFormatter],
                     validator: (date){
                       if(date.length != 7) return 'Inválido';
-                        return null;
+                      return null;
                     },
+                    onSubmitted: (_){
+                      nameFocus.requestFocus();
+                    },
+                    focusNode: dateFocus,
                   ),
                   CardTextField(
-                    title: 'Titular',
+                    title: 'Títular',
                     hint: 'João da Silva',
                     textInputType: TextInputType.text,
                     bold: true,
@@ -71,13 +83,13 @@ class CardFront extends StatelessWidget {
                       if(name.isEmpty) return 'Inválido';
                       return null;
                     },
+                    onSubmitted: (_){
+                      finished();
+                    },
+                    focusNode: nameFocus,
                   ),
                 ],
               ),
-            ),
-            Padding(
-              padding: const EdgeInsets.only(bottom: 120.0),
-              child: Icon(Icons.credit_card,size: 35, color: Colors.white,),
             ),
           ],
         ),
