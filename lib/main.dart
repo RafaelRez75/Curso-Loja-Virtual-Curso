@@ -1,4 +1,3 @@
-import 'package:cloud_functions/cloud_functions.dart';
 import 'package:flutter/material.dart';
 import 'package:lojavirtual/models/admin_orders_manager.dart';
 import 'package:lojavirtual/models/admin_users_manager.dart';
@@ -22,13 +21,8 @@ import 'package:lojavirtual/screens/select_product/select_product_screen.dart';
 import 'package:lojavirtual/screens/signup/signup_screen.dart';
 import 'package:provider/provider.dart';
 
-void main() async {
+void main() {
   runApp(MyApp());
-
-  final response = await CloudFunctions.instance.getHttpsCallable(functionName: 'addMessage').call(
-      {"teste" : "Rafael",}
-  );
-  print(response.data);
 }
 
 class MyApp extends StatelessWidget {
